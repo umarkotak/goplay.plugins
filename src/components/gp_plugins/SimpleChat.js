@@ -110,8 +110,8 @@ function SimpleChat() {
         var parsedData = JSON.parse(data)
         if (!parsedData) { return }
         if (parsedData.ct === 20) {
-          console.log(parsedData)
           setChatMessages(chatMessages => [...chatMessages, parsedData])
+          window.scrollTo(0,document.body.scrollHeight)
         }
       } catch(error) {
         console.log("ERROR handleChatWSIncomingMessage", error)
