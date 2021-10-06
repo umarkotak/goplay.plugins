@@ -122,7 +122,7 @@ function SimpleChat() {
   return (
     <div className="container" style={{backgroundColor: "#00000000"}}>
       {chatMessages.map(((chatMessage, index) => (
-        <div className="border rounded mb-1 p-1" id={chatMessage.id}>
+        <div className="border rounded mb-1 p-1 bg-white" id={chatMessage.id}>
           <b>{chatMessage.frm}</b>
           <br className="my-1" />
           {chatMessage.msg}
