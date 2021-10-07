@@ -11,13 +11,15 @@ function TarikTambang() {
   const [vanguardChatRoom, setVanguardChatRoom] = useState({})
   const [chatMessages, setChatMessages] = useState([])
 
-  var redTeamGiftIDS = ["Banana"]
-  var blueTeamGiftIDS = ["Nasgor Special"]
+  var redTeamGiftIDS = ["Yoh Iso Yoh", "Take a bow!"]
+  var blueTeamGiftIDS = ["Come On Joko Tingkir!", "Shiba Inu"]
   var [redTeamPower, setRedTeamPower] = useState(0)
   var [blueTeamPower, setBlueTeamPower] = useState(0)
   var [powerState, setPowerState] = useState(500000)
+  var [winner, setWinner] = useState("")
   var redPower = 0
   var bluePower = 0
+  var currPower = 500000
 
   var chatTemplate = {
     width: (qsParse.width || 1200) + "px",
@@ -99,6 +101,8 @@ function TarikTambang() {
       if (!vanguardChatRoom.room_id || !vanguardChatRoom.token) { return }
 
       var chatWSURL = "wss://gschat.goplay.co.id/chat"
+      var chatWSURL = "wss://g-gschat.goplay.co.id/chat"
+
       chatWS.current = new WebSocket(chatWSURL)
       if (!chatWS.current) { return }
 
@@ -131,11 +135,18 @@ function TarikTambang() {
           if (redTeamGiftIDS.includes(parsedData.title_en)) {
             redPower = redPower + parsedData.price
             setRedTeamPower(redPower)
-            setPowerState(powerState - parsedData.price)
+            currPower = currPower - parsedData.price
+            setPowerState(currPower)
           } else if (blueTeamGiftIDS.includes(parsedData.title_en)) {
             bluePower = bluePower + parsedData.price
             setBlueTeamPower(bluePower)
-            setPowerState(powerState + parsedData.price)
+            currPower = currPower + parsedData.price
+            setPowerState(currPower)
+          }
+          if (redPower > bluePower) {
+            setWinner("red team")
+          } else if (redPower < bluePower) {
+            setWinner("blue team")
           }
           setChatMessages(chatMessages => [...chatMessages, parsedData])
         }
@@ -162,6 +173,10 @@ function TarikTambang() {
           <span className="badge rounded-pill bg-secondary">pwr: {blueTeamPower}</span>
         </div>
       </div>
+      <br/>
+      <div className="text-center">
+        <span className="badge rounded-pill bg-secondary">|</span>
+      </div>
       <div className="p-2">
         <input
           type="range"
@@ -173,6 +188,9 @@ function TarikTambang() {
           value={powerState}
           readOnly
         />
+      </div>
+      <div className="text-center">
+        leading: <span className="badge rounded-pill bg-primary">{winner}</span>
       </div>
     </div>
   )

@@ -4,9 +4,7 @@ import React, { useState } from "react"
 function TarikTambang() {
   const [configParams, setConfigParams] = useState({
     live_event_slug: "",
-    width: 400,
-    chat_box_bg: "FFFFFF",
-    chat_text_color: "000000"
+    width: 1200,
   })
   function handleConfigParamsChanges(e) {
     const { name, value } = e.target
