@@ -12,7 +12,8 @@ class GoplayApi {
   async GetLiveEventDetail(params) {
     return this.BaseHttpCall(
       "GET",
-      `${this.GoplayApiHOST}/goplay_api_integration/v1/live/event/${params.live_event_slug}`,
+      `${this.GoplayApiHOST}/goplay_api/v1/live/event/${params.live_event_slug}`,
+      // `${this.GoplayApiHOST}/goplay_api_integration/v1/live/event/${params.live_event_slug}`,
       {},
       {},
       {}

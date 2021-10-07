@@ -100,8 +100,8 @@ function TarikTambang() {
     try {
       if (!vanguardChatRoom.room_id || !vanguardChatRoom.token) { return }
 
-      var chatWSURL = "wss://gschat.goplay.co.id/chat"
       var chatWSURL = "wss://g-gschat.goplay.co.id/chat"
+      var chatWSURL = "wss://gschat.goplay.co.id/chat"
 
       chatWS.current = new WebSocket(chatWSURL)
       if (!chatWS.current) { return }
