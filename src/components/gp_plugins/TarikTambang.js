@@ -184,10 +184,10 @@ function TarikTambang() {
         </div>
       </div>
       <br/>
-      <div className="text-center">
-        <span style={{position: "fixed", left: "50%", fontSize: "25px"}}>|</span>
-      </div>
       <div className="p-2 pb-0">
+        <div className="text-center" style={{marginBottom: "-25px"}}>
+          <span style={{fontSize: "25px"}}>|</span>
+        </div>
         <input
           type="range"
           class="form-range"
@@ -196,6 +196,7 @@ function TarikTambang() {
           max="1000000"
           // onChange={(e) => setPowerState(e.target.value)}
           value={powerState}
+          // value={500000}
           readOnly
         />
       </div>
