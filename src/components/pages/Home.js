@@ -2,22 +2,46 @@ import React from "react"
 import {Link} from "react-router-dom"
 
 function Home() {
+
+  var pluginList = [
+    {
+      title: "Simple Chat",
+      description: "Showing goplay live chat",
+      image_link: "/images/thumbs_simple_chat.png",
+      use_link: "/configs/simple_chat"
+    },
+    {
+      title: "Tarik Tambang",
+      description: "Showing tarik tambang games. game played by sending virtual gifts",
+      image_link: "/images/default_image.jpeg",
+      use_link: "/configs/simple_chat"
+    },
+  ]
+
   return (
-    <div>
-      <div className="container">
-        <div className="bd-pink-400 text-white border rounded">
+    <div style={{
+      backgroundColor: "#8ad3ed",
+      height: "2000px"
+    }}>
+      <div className="container p-2 border rounded bg-light">
+        <div className="bd-pink-400 text-white border rounded mb-2">
           <h1 className="text-center">Welcome To Goplay Plugins Glosary</h1>
         </div>
 
-        <div className="row">
-          <div className="col-12 col-lg-4">
-            <PluginCard params={{
-              title: "Simple Chat",
-              description: "Showing chat",
-              image_link: "https://placekitten.com/500/400",
-              use_link: "/gp_plugins/simple_chat"
-            }} />
+        <div className="row mb-2">
+          <div className="col-2">
+            <div className="p-1">
+              <Link to="#" className="btn btn-sm btn-success d-grid gap-2">How To Use</Link>
+            </div>
           </div>
+        </div>
+
+        <div className="row">
+          {pluginList.map(((selectedPlugin, index) => (
+            <div className="col-12 col-lg-4" id={index}>
+              <PluginCard params={selectedPlugin} />
+            </div>
+          )))}
         </div>
       </div>
     </div>
@@ -35,7 +59,8 @@ function Home() {
                   width: "100%"
                 }}
                 src={props.params.image_link}
-                className="img-fluid"
+                className="img-fluid border rounded"
+                alt="thumbs"
               />
             </div>
             <div className="col-6 ps-0">
@@ -44,7 +69,7 @@ function Home() {
                   <h3>{props.params.title}</h3>
                   <p>{props.params.description}</p>
                 </div>
-                <Link to={props.params.use_link} className="btn btn-block bd-pink-400 d-grid gap-2 text-white">Use</Link>
+                <Link to={props.params.use_link} className="btn bd-pink-400 d-grid gap-2 text-white">Use</Link>
               </div>
             </div>
           </div>

@@ -3,18 +3,22 @@ import React, { useState, useRef, useEffect } from "react"
 import GoplayApi from "../services/GoplayApi"
 
 var qs = require('qs')
-function query_live_event_slug() {
-  return qs.parse(window.location.search, { ignoreQueryPrefix: true }).live_event_slug
-}
+var qsParse = qs.parse(window.location.search, { ignoreQueryPrefix: true })
 
 function SimpleChat() {
   const [liveEventDetail, setLiveEventDeail] = useState({})
   const [vanguardChatRoom, setVanguardChatRoom] = useState({})
   const [chatMessages, setChatMessages] = useState([])
 
+  var chatTemplate = {
+    width: (qsParse.width || 400) + "px",
+    chatBoxBG: (qsParse.chat_box_bg || "FFFFFF"),
+    chatTextColor: (qsParse.chat_text_color || "000000"),
+  }
+
   async function fetchLiveEventDetail() {
     const response = await GoplayApi.GetLiveEventDetail({
-      live_event_slug: query_live_event_slug()
+      live_event_slug: qsParse.live_event_slug
     })
     setLiveEventDeail(response.body.data)
   }
@@ -120,12 +124,25 @@ function SimpleChat() {
   }
 
   return (
-    <div className="container" style={{backgroundColor: "#00000000"}}>
+    <div className="container" style={{
+      backgroundColor: "#00000000",
+      width: chatTemplate.width
+    }}>
       {chatMessages.map(((chatMessage, index) => (
-        <div className="border rounded mb-1 p-1 bg-white" id={chatMessage.id}>
-          <b>{chatMessage.frm}</b>
-          <br className="my-1" />
-          {chatMessage.msg}
+        <div
+          className="border rounded mb-2 p-2"
+          id={chatMessage.id}
+          style={{
+            backgroundColor: `#${chatTemplate.chatBoxBG}`,
+          }}
+        >
+          <p style={{
+            color: `#${chatTemplate.chatTextColor}`,
+          }}>
+            <b>{chatMessage.frm}</b>
+            <br className="my-1" />
+            {chatMessage.msg}
+          </p>
         </div>
       )))}
     </div>
