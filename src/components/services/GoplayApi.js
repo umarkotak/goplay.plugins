@@ -39,6 +39,10 @@ class GoplayApi {
     }
   }
 
+  AvailableGiftTitles() {
+    return ["Cilok", "Nasi Pecel", "Nasgor Special", "Martabak Spesial", "Light Stick", "Disco Ball", "DWP Special Drink", "Loving it", "Agreeeeeee", "Just for you", "Encore!", "Mind blown", "Take a bow!", "You're lit", "Well noted", "Cheat sheet", "Ganbatte", "Takoyaki", "Sushi Roll", "Kawaii", "Sushi Platter", "Lucky Cat", "McDonald's", "Come On Joko Tingkir!", "Soto Lamongan", "Lightstick", "Yoh Iso Yoh", "Lumpia Semarang", "Bakpia Jogja", "Goall", "Djajati Persik", "Carrot", "Meat", "Bucin Banget", "Ugh Gemeesh", "Mabar Kuy", "Drumstick", "Calliandra", "Caterpillar", "Cricket", "Green Bean", "Fish", "Whole Chicken", "Banana", "Kick Avenue", "Milk", "Watermelon", "Biscuit Date", "Merdeka Mask", "Chicken Bowl", "Gold Medal", "Lucky Cat Merdeka", "MERDEKA!", "Itadakimas!", "GoPlay Mask", "Play 2Gether", "Pecel Lele", "Warung Pecel", "Lamongan Megilan", "Iced Coffee", "Confetti", "Disco Ball", "Teddy", "Galaxy", "Private Island", "Treasure Chest"]
+  }
+
 }
 
 const goplayApi = new GoplayApi()

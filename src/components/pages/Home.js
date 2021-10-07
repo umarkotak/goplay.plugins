@@ -14,7 +14,7 @@ function Home() {
       title: "Tarik Tambang",
       description: "Showing tarik tambang games. game played by sending virtual gifts",
       image_link: "/images/default_image.jpeg",
-      use_link: "/configs/simple_chat"
+      use_link: "/configs/tarik_tambang"
     },
   ]
 
