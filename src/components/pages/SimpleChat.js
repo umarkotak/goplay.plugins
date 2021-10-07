@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-// import {Link} from "react-router-dom"
+import {Link} from "react-router-dom"
 
 function SimpleChat() {
   const [configParams, setConfigParams] = useState({
@@ -28,7 +28,7 @@ function SimpleChat() {
     }}>
       <div className="container p-2 border rounded bg-light">
         <div className="bd-pink-400 text-white border rounded mb-2">
-          <h1 className="text-center">Welcome To Goplay Plugins Glosary</h1>
+          <h1 className="text-center"><Link to="/" className="text-white">Welcome To Goplay Plugins Glosary</Link></h1>
         </div>
 
         <div>

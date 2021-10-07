@@ -1,21 +1,44 @@
 import React, { useState } from "react"
-// import {Link} from "react-router-dom"
+import {Link} from "react-router-dom"
+import Select from 'react-select'
+
+import GoplayApi from "../services/GoplayApi"
 
 function TarikTambang() {
   const [configParams, setConfigParams] = useState({
     live_event_slug: "",
     width: 1200,
+    left_side_label: "Red Team",
+    left_side_gift_list: "",
+    right_side_label: "Blue Team",
+    right_side_gift_list: "",
+    start_time: new Date(),
+    end_time: new Date(),
+    winning_condition: "last_leading",
+    winning_threshold: 0,
   })
   function handleConfigParamsChanges(e) {
-    const { name, value } = e.target
-    setConfigParams(configParams => ({...configParams, [name]: value}))
+    try {
+      const { name, value } = e.target
+      setConfigParams(configParams => ({...configParams, [name]: value}))
+    } catch (err) {
+      if (Array.isArray(e) && e.length > 0) {
+        var joinedValue = e.map((val, idx) => {
+          return val.value
+        }).join(",")
+        setConfigParams(configParams => ({...configParams, [e[0].name]: joinedValue}))
+        return
+      }
+      setConfigParams(configParams => ({...configParams, [e.name]: e.value}))
+    }
   }
 
   const [pluginLink, setPluginLink] = useState("")
 
   function generatePluginLink() {
+    var sanitizedConfigParams = configParams
     var generatedLink = new URL(`${window.location.origin}/gp_plugins/tarik_tambang`)
-    generatedLink.search = new URLSearchParams(configParams).toString()
+    generatedLink.search = new URLSearchParams(sanitizedConfigParams).toString()
     setPluginLink(generatedLink)
   }
 
@@ -26,32 +49,74 @@ function TarikTambang() {
     }}>
       <div className="container p-2 border rounded bg-light">
         <div className="bd-pink-400 text-white border rounded mb-2">
-          <h1 className="text-center">Welcome To Goplay Plugins Glosary</h1>
+          <h1 className="text-center"><Link to="/" className="text-white">Welcome To Goplay Plugins Glosary</Link></h1>
         </div>
 
         <div>
-          <h1>Config - Tarik Tambang</h1>
+          <h1 className="text-center"></h1>
         </div>
 
         <div className="row">
           <div className="col-6">
             <div className="form-control">
-              <div class="form-group mb-3">
+              <div className="form-group mb-3">
                 <label for="exampleInputEmail1">Live event slug</label>
-                <input type="text" class="form-control" placeholder="pagi-ceria-di-goplay" name="live_event_slug" onChange={(e) => handleConfigParamsChanges(e)} />
-                <small class="form-text text-muted">Eg: https://goplay.co.id/live/<b>pagi-ceria-di-goplay</b>. Live event slug can be found on your goplay url</small>
+                <input type="text" className="form-control" placeholder="pagi-ceria-di-goplay" name="live_event_slug" onChange={(e) => handleConfigParamsChanges(e)} />
+                <small className="form-text text-muted">Eg: https://goplay.co.id/live/<b>pagi-ceria-di-goplay</b>. Live event slug can be found on your goplay url</small>
               </div>
+              <div className="form-group mb-3">
+                <label for="exampleInputEmail1"><b>Left</b> side label</label>
+                <input type="text" className="form-control" name="left_side_label" defaultValue={configParams.left_side_label} onChange={(e) => handleConfigParamsChanges(e)} />
+              </div>
+              <div className="form-group mb-3">
+                <label for="exampleInputEmail1"><b>Left</b> side Gift list</label>
+                <Select name="left_side_label" isMulti options={GoplayApi.AvailableGiftTitles("left_side_gift_list")} onChange={(e) => handleConfigParamsChanges(e)} />
+              </div>
+              <div className="form-group mb-3">
+                <label for="exampleInputEmail1"><b>Right</b> side label</label>
+                <input type="text" className="form-control" name="right_side_label" defaultValue={configParams.right_side_label} onChange={(e) => handleConfigParamsChanges(e)} />
+              </div>
+              <div className="form-group mb-3">
+                <label for="exampleInputEmail1"><b>Right</b> side Gift list</label>
+                <Select name="right_side_label" isMulti options={GoplayApi.AvailableGiftTitles("right_side_gift_list")} onChange={(e) => handleConfigParamsChanges(e)} />
+              </div>
+              <div className="form-group mb-3">
+                <label for="exampleInputEmail1">Start Time</label>
+                <input type="datetime-local" className="form-control" name="start_time" onChange={(e) => handleConfigParamsChanges(e)} />
+              </div>
+              <div className="form-group mb-3">
+                <label for="exampleInputEmail1">End Time</label>
+                <input type="datetime-local" className="form-control" name="end_time" onChange={(e) => handleConfigParamsChanges(e)} />
+              </div>
+              <div className="form-group mb-3">
+                <label for="exampleInputEmail1">Winning Condition</label>
+                <Select
+                  name="winning_condition"
+                  options={[
+                    {name: "winning_condition", value: "last_leading", label: "Last Leading"},
+                    {name: "winning_condition", value: "first_reach_threshold", label: "First Reach Threshold"}
+                  ]}
+                  onChange={(e) => handleConfigParamsChanges(e)}
+                />
+              </div>
+              <div className="form-group mb-3">
+                <label for="exampleInputEmail1">Winning Threshold</label>
+                <input type="number" className="form-control" name="winning_threshold" onChange={(e) => handleConfigParamsChanges(e)} />
+              </div>
+
               <hr className="my-2" />
-              <div class="form-group d-grid gap-2">
+              <div className="form-group d-grid gap-2">
                 <button className="btn btn-success" onClick={() => generatePluginLink()}>Generate Plugin Link</button>
               </div>
-              <div class="form-group">
-                <input type="text" class="form-control" value={pluginLink} readOnly />
+              <div className="form-group">
+                <input type="text" className="form-control" value={pluginLink} readOnly />
               </div>
             </div>
           </div>
           <div className="col-6">
-
+            <pre>
+              {/* {JSON.stringify(configParams,null,2)} */}
+            </pre>
           </div>
         </div>
       </div>

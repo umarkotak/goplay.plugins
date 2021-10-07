@@ -11,8 +11,10 @@ function TarikTambang() {
   const [vanguardChatRoom, setVanguardChatRoom] = useState({})
   const [chatMessages, setChatMessages] = useState([])
 
-  var redTeamGiftIDS = ["Yoh Iso Yoh", "Take a bow!"]
-  var blueTeamGiftIDS = ["Come On Joko Tingkir!", "Shiba Inu"]
+  var leftSideLabel = qsParse.left_side_label
+  var rightSideLabel = qsParse.right_side_label
+  var leftSideGiftIDs = qsParse.left_side_gift_list.split(",")
+  var rightSideGiftIDs = qsParse.right_side_gift_list.split(",")
   var [redTeamPower, setRedTeamPower] = useState(0)
   var [blueTeamPower, setBlueTeamPower] = useState(0)
   var [powerState, setPowerState] = useState(500000)
@@ -20,6 +22,8 @@ function TarikTambang() {
   var redPower = 0
   var bluePower = 0
   var currPower = 500000
+
+  var countedGift = []
 
   var chatTemplate = {
     width: (qsParse.width || 1200) + "px",
@@ -70,7 +74,11 @@ function TarikTambang() {
           recon: false,
           username: "anonymous"
         }
-        vanguardWS.current.send(JSON.stringify(payload))
+        try {
+          vanguardWS.current.send(JSON.stringify(payload))
+        } catch (error) {
+          console.log(error)
+        }
       }
       vanguardWS.current.onmessage = (e) => {
         e.preventDefault()
@@ -131,23 +139,29 @@ function TarikTambang() {
         var parsedData = JSON.parse(data)
         if (!parsedData) { return }
         if (parsedData.ct === 82) {
-          console.log(parsedData.title_en, parsedData.price)
-          if (redTeamGiftIDS.includes(parsedData.title_en)) {
+          console.log(parsedData)
+
+          if (countedGift.includes(parsedData.id)) { return }
+
+          if (leftSideGiftIDs.includes(parsedData.title_en)) {
             redPower = redPower + parsedData.price
             setRedTeamPower(redPower)
             currPower = currPower - parsedData.price
             setPowerState(currPower)
-          } else if (blueTeamGiftIDS.includes(parsedData.title_en)) {
+          } else if (rightSideGiftIDs.includes(parsedData.title_en)) {
             bluePower = bluePower + parsedData.price
             setBlueTeamPower(bluePower)
             currPower = currPower + parsedData.price
             setPowerState(currPower)
           }
           if (redPower > bluePower) {
-            setWinner("red team")
+            setWinner(leftSideLabel)
           } else if (redPower < bluePower) {
-            setWinner("blue team")
+            setWinner(rightSideLabel)
           }
+
+          countedGift.push(parsedData.id)
+
           setChatMessages(chatMessages => [...chatMessages, parsedData])
         }
       } catch(error) {
@@ -163,21 +177,17 @@ function TarikTambang() {
     }}>
       <div>
         <div className="float-start">
-          <span className="badge rounded-pill bg-danger">Red Team</span>
-          <br/>
-          <span className="badge rounded-pill bg-secondary">pwr: {redTeamPower}</span>
+          <span className="badge rounded-pill bg-danger">{leftSideLabel}</span>
         </div>
         <div className="float-end">
-          <span className="badge rounded-pill bg-primary">Blue Team</span>
-          <br/>
-          <span className="badge rounded-pill bg-secondary">pwr: {blueTeamPower}</span>
+          <span className="badge rounded-pill bg-primary">{rightSideLabel}</span>
         </div>
       </div>
       <br/>
       <div className="text-center">
-        <span className="badge rounded-pill bg-secondary">|</span>
+        <span style={{position: "fixed", left: "50%", fontSize: "25px"}}>|</span>
       </div>
-      <div className="p-2">
+      <div className="p-2 pb-0">
         <input
           type="range"
           class="form-range"
@@ -189,8 +199,16 @@ function TarikTambang() {
           readOnly
         />
       </div>
+      <div>
+        <div className="float-start">
+          <span className="badge rounded-pill bg-secondary">pwr: {redTeamPower}</span>
+        </div>
+        <div className="float-end">
+          <span className="badge rounded-pill bg-secondary">pwr: {blueTeamPower}</span>
+        </div>
+      </div>
       <div className="text-center">
-        leading: <span className="badge rounded-pill bg-primary">{winner}</span>
+        leading: <span className={`badge rounded-pill ${winner === leftSideLabel ? "bg-danger" : "bg-primary"}`}>{winner}</span>
       </div>
     </div>
   )
