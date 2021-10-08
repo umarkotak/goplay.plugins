@@ -70,7 +70,12 @@ function TarikTambang() {
               </div>
               <div className="form-group mb-3">
                 <label for="exampleInputEmail1"><b>Left</b> side Gift list</label>
-                <Select name="left_side_label" isMulti options={GoplayApi.AvailableGiftTitles("left_side_gift_list")} onChange={(e) => handleConfigParamsChanges(e)} />
+                <Select
+                  name="left_side_label"
+                  isMulti
+                  options={GoplayApi.AvailableGifts("left_side_gift_list")}
+                  onChange={(e) => handleConfigParamsChanges(e)}
+                />
               </div>
               <div className="form-group mb-3">
                 <label for="exampleInputEmail1"><b>Right</b> side label</label>
@@ -78,7 +83,12 @@ function TarikTambang() {
               </div>
               <div className="form-group mb-3">
                 <label for="exampleInputEmail1"><b>Right</b> side Gift list</label>
-                <Select name="right_side_label" isMulti options={GoplayApi.AvailableGiftTitles("right_side_gift_list")} onChange={(e) => handleConfigParamsChanges(e)} />
+                <Select
+                  name="right_side_label"
+                  isMulti
+                  options={GoplayApi.AvailableGifts("right_side_gift_list")}
+                  onChange={(e) => handleConfigParamsChanges(e)}
+                />
               </div>
               <div className="form-group mb-3">
                 <label for="exampleInputEmail1">Start Time</label>

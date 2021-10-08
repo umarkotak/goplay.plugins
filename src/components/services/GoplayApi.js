@@ -1,3 +1,5 @@
+import DataVG from "./DataVG"
+
 class GoplayApi {
   constructor() {
     if (window.location.protocol === "https:") {
@@ -109,6 +111,14 @@ class GoplayApi {
       {name: name, value: "Private Island", label: "Private Island"},
       {name: name, value: "Treasure Chest", label: "Treasure Chest"},
     ]
+  }
+
+  AvailableGifts(name) {
+    var datas = DataVG.Get()
+    var res = datas.map((val, key) => {
+      return {name: name, value: val.title, label: <div><img src={val.icon_url} alt="" height="30px" width="30px"/> {val.title}</div>}
+    })
+    return res
   }
 
 }
