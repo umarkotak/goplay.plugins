@@ -18,6 +18,20 @@ function Home() {
       image_link: "/images/thumbs_tarik_tambang.png",
       use_link: "/configs/tarik_tambang"
     },
+    {
+      id: 3,
+      title: "Voice thanks",
+      description: "Speaking thankyou when the audience sent you gifts",
+      image_link: "/images/thumbs_tarik_tambang.png",
+      use_link: "/configs/voice_bot"
+    },
+    {
+      id: 4,
+      title: "Gift binggo",
+      description: "Playing a binggo games using virtual gifts",
+      image_link: "/images/thumbs_tarik_tambang.png",
+      use_link: "/configs/gift_binggo"
+    },
   ]
 
   return (
@@ -31,16 +45,14 @@ function Home() {
         </div>
 
         <div className="row mb-2">
-          <div className="col-2">
-            <div className="p-1">
-              <Link to="#" className="btn btn-sm btn-success d-grid gap-2">How To Use</Link>
-            </div>
+          <div className="col-12">
+            <Link to="#" className="btn btn-sm btn-success btn-block d-grid gap-2">How To Use</Link>
           </div>
         </div>
 
         <div className="row">
           {pluginList.map(((selectedPlugin, index) => (
-            <div className="col-12 col-lg-4" key={selectedPlugin.id} id={index}>
+            <div className="col-12 col-lg-3" key={selectedPlugin.id} id={index}>
               <PluginCard params={selectedPlugin} />
             </div>
           )))}
@@ -52,27 +64,21 @@ function Home() {
   function PluginCard(props) {
     return(
       <div>
-        <div className="border rounded">
-          <div className="row">
-            <div className="col-6 pe-0">
-              <img
-                style={{
-                  height: "200px",
-                  width: "100%"
-                }}
-                src={props.params.image_link}
-                className="img-fluid border rounded"
-                alt="thumbs"
-              />
-            </div>
-            <div className="col-6 ps-0">
-              <div className="px-1">
-                <div>
-                  <h3>{props.params.title}</h3>
-                  <p>{props.params.description}</p>
-                </div>
-                <Link to={props.params.use_link} className="btn bd-pink-400 d-grid gap-2 text-white">Use</Link>
-              </div>
+        <div className="shadow-sm border rounded mt-2">
+          <div class="card">
+            <img
+              style={{
+                height: "200px",
+                width: "100%"
+              }}
+              src={props.params.image_link}
+              className="img-fluid border rounded p-2"
+              alt="thumbs"
+            />
+            <div class="card-body">
+              <h5 class="card-title">{props.params.title}</h5>
+              <p class="card-text">{props.params.description}</p>
+              <Link to={props.params.use_link} className="btn bd-pink-400 d-grid gap-2 text-white">Use</Link>
             </div>
           </div>
         </div>

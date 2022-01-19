@@ -31,10 +31,9 @@ function TarikTambang() {
   }
 
   async function fetchLiveEventDetail() {
-    const response = await GoplayApi.GetLiveEventDetail({
-      live_event_slug: qsParse.live_event_slug
-    })
-    setLiveEventDeail(response.body.data)
+    const response = await GoplayApi.fetchLiveEventDetail(qsParse.env, qsParse.live_event_slug)
+    var body = await response.json()
+    setLiveEventDeail(body.data)
   }
 
   useEffect(() => {
@@ -107,11 +106,7 @@ function TarikTambang() {
     try {
       if (!vanguardChatRoom.room_id || !vanguardChatRoom.token) { return }
 
-      var chatWSURL
-      chatWSURL = "wss://g-gschat.goplay.co.id/chat"
-      chatWSURL = "wss://gschat.goplay.co.id/chat"
-
-      chatWS.current = new WebSocket(chatWSURL)
+      chatWS.current = new WebSocket(GoplayApi.getChatWSURL(qsParse.env))
       if (!chatWS.current) { return }
 
       chatWS.current.onopen = () => {
@@ -143,12 +138,12 @@ function TarikTambang() {
 
           if (countedGift.includes(parsedData.id)) { return }
 
-          if (leftSideGiftIDs.includes(parsedData.title_en)) {
+          if (leftSideGiftIDs.includes(parsedData.icon)) {
             redPower = redPower + parsedData.price
             setRedTeamPower(redPower)
             currPower = currPower - parsedData.price
             setPowerState(currPower)
-          } else if (rightSideGiftIDs.includes(parsedData.title_en)) {
+          } else if (rightSideGiftIDs.includes(parsedData.icon)) {
             bluePower = bluePower + parsedData.price
             setBlueTeamPower(bluePower)
             currPower = currPower + parsedData.price
@@ -188,8 +183,7 @@ function TarikTambang() {
         </div>
         <input
           type="range"
-          class="form-range"
-          defaultValue={powerState}
+          className="form-range"
           min="0"
           max="1000000"
           // onChange={(e) => setPowerState(e.target.value)}

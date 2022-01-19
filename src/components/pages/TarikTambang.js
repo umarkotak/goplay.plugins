@@ -5,8 +5,8 @@ import Select from 'react-select'
 import GoplayApi from "../services/GoplayApi"
 
 function TarikTambang() {
-  const [vgList, setVgList] = useState(null)
   const [configParams, setConfigParams] = useState({
+    env: "production",
     live_event_slug: "",
     width: 1200,
     left_side_label: "Red Team",
@@ -18,6 +18,21 @@ function TarikTambang() {
     winning_condition: "last_leading",
     winning_threshold: 0,
   })
+  const[left_side_gift_list, set_left_side_gift_list] = useState([])
+  const[right_side_gift_list, set_right_side_gift_list] = useState([])
+
+  async function fetch_gift_list(){
+    var temp = await GoplayApi.fetchGiftListReconstructed(configParams["env"], "left_side_gift_list")
+    set_left_side_gift_list(temp)
+    temp = await GoplayApi.fetchGiftListReconstructed(configParams["env"], "right_side_gift_list")
+    set_right_side_gift_list(temp)
+  }
+
+  useEffect(() => {
+    fetch_gift_list()
+    // eslint-disable-next-line
+  }, [configParams])
+
   function handleConfigParamsChanges(e) {
     try {
       const { name, value } = e.target
@@ -43,16 +58,6 @@ function TarikTambang() {
     setPluginLink(generatedLink)
   }
 
-  useEffect(() => {
-    fetchVirtualGifts()
-    // eslint-disable-next-line
-  }, [])
-
-  async function fetchVirtualGifts() {
-    const response = await GoplayApi.GetVirtualGifts()
-    setVgList(response.body.data.gifts)
-  }
-
   return (
     <div style={{
       backgroundColor: "#8ad3ed",
@@ -71,6 +76,27 @@ function TarikTambang() {
           <div className="col-6">
             <div className="form-control">
               <div className="form-group mb-3">
+                <label>Environment</label>
+                <Select
+                  name="env"
+                  options={[
+                    {
+                      value: "production",
+                      label: "production",
+                      title: "env",
+                      name: "env"
+                    },
+                    {
+                      value: "integration",
+                      label: "integration",
+                      title: "env",
+                      name: "env"
+                    }
+                  ]}
+                  onChange={(e) => handleConfigParamsChanges(e)}
+                />
+              </div>
+              <div className="form-group mb-3">
                 <label>Live event slug</label>
                 <input type="text" className="form-control" placeholder="pagi-ceria-di-goplay" name="live_event_slug" onChange={(e) => handleConfigParamsChanges(e)} />
                 <small className="form-text text-muted">Eg: https://goplay.co.id/live/<b>pagi-ceria-di-goplay</b>. Live event slug can be found on your goplay url</small>
@@ -84,7 +110,7 @@ function TarikTambang() {
                 <Select
                   name="left_side_label"
                   isMulti
-                  options={GoplayApi.AvailableGifts(vgList, "left_side_gift_list")}
+                  options={left_side_gift_list}
                   onChange={(e) => handleConfigParamsChanges(e)}
                 />
               </div>
@@ -97,7 +123,7 @@ function TarikTambang() {
                 <Select
                   name="right_side_label"
                   isMulti
-                  options={GoplayApi.AvailableGifts(vgList, "right_side_gift_list")}
+                  options={right_side_gift_list}
                   onChange={(e) => handleConfigParamsChanges(e)}
                 />
               </div>
