@@ -45,8 +45,11 @@ function Home() {
         </div>
 
         <div className="row mb-2">
-          <div className="col-12">
+          <div className="col-6">
             <Link to="#" className="btn btn-sm btn-success btn-block d-grid gap-2">How To Use</Link>
+          </div>
+          <div className="col-6">
+            <Link to="/login" className="btn btn-sm btn-success btn-block d-grid gap-2">Login</Link>
           </div>
         </div>
 
@@ -64,7 +67,7 @@ function Home() {
   function PluginCard(props) {
     return(
       <div>
-        <div className="shadow-sm border rounded mt-2">
+        <div className="shadow-sm mt-2">
           <div class="card">
             <img
               style={{
@@ -78,7 +81,7 @@ function Home() {
             <div class="card-body">
               <h5 class="card-title">{props.params.title}</h5>
               <p class="card-text">{props.params.description}</p>
-              <Link to={props.params.use_link} className="btn bd-pink-400 d-grid gap-2 text-white">Use</Link>
+              <Link to={props.params.use_link} className="btn bd-pink-400 btn-block text-white">Use</Link>
             </div>
           </div>
         </div>
