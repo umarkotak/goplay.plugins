@@ -158,6 +158,9 @@ function TarikTambang() {
               <div className="form-group">
                 <input type="text" className="form-control" value={pluginLink} readOnly />
               </div>
+              <div className="form-group d-grid gap-2">
+                <Link to={pluginLink} target="_blank" rel="" className="btn btn-success">Plugin Link</Link>
+              </div>
             </div>
           </div>
           <div className="col-6">
