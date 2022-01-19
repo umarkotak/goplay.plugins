@@ -5,12 +5,14 @@ function Home() {
 
   var pluginList = [
     {
+      id: 1,
       title: "Simple Chat",
       description: "Showing goplay live chat",
       image_link: "/images/thumbs_simple_chat.png",
       use_link: "/configs/simple_chat"
     },
     {
+      id: 2,
       title: "Tarik Tambang",
       description: "Showing tarik tambang games. game played by sending virtual gifts",
       image_link: "/images/thumbs_tarik_tambang.png",
@@ -38,7 +40,7 @@ function Home() {
 
         <div className="row">
           {pluginList.map(((selectedPlugin, index) => (
-            <div className="col-12 col-lg-4" id={index}>
+            <div className="col-12 col-lg-4" key={selectedPlugin.id} id={index}>
               <PluginCard params={selectedPlugin} />
             </div>
           )))}

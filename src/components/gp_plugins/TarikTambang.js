@@ -9,7 +9,6 @@ var qsParse = qs.parse(window.location.search, { ignoreQueryPrefix: true })
 function TarikTambang() {
   const [liveEventDetail, setLiveEventDeail] = useState({})
   const [vanguardChatRoom, setVanguardChatRoom] = useState({})
-  const [chatMessages, setChatMessages] = useState([])
 
   var leftSideLabel = qsParse.left_side_label
   var rightSideLabel = qsParse.right_side_label
@@ -108,8 +107,9 @@ function TarikTambang() {
     try {
       if (!vanguardChatRoom.room_id || !vanguardChatRoom.token) { return }
 
-      var chatWSURL = "wss://g-gschat.goplay.co.id/chat"
-      var chatWSURL = "wss://gschat.goplay.co.id/chat"
+      var chatWSURL
+      chatWSURL = "wss://g-gschat.goplay.co.id/chat"
+      chatWSURL = "wss://gschat.goplay.co.id/chat"
 
       chatWS.current = new WebSocket(chatWSURL)
       if (!chatWS.current) { return }
@@ -161,8 +161,6 @@ function TarikTambang() {
           }
 
           countedGift.push(parsedData.id)
-
-          setChatMessages(chatMessages => [...chatMessages, parsedData])
         }
       } catch(error) {
         console.log("ERROR handleChatWSIncomingMessage", error)

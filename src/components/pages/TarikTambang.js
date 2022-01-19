@@ -1,10 +1,11 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import {Link} from "react-router-dom"
 import Select from 'react-select'
 
 import GoplayApi from "../services/GoplayApi"
 
 function TarikTambang() {
+  const [vgList, setVgList] = useState(null)
   const [configParams, setConfigParams] = useState({
     live_event_slug: "",
     width: 1200,
@@ -42,6 +43,16 @@ function TarikTambang() {
     setPluginLink(generatedLink)
   }
 
+  useEffect(() => {
+    fetchVirtualGifts()
+    // eslint-disable-next-line
+  }, [])
+
+  async function fetchVirtualGifts() {
+    const response = await GoplayApi.GetVirtualGifts()
+    setVgList(response.body.data.gifts)
+  }
+
   return (
     <div style={{
       backgroundColor: "#8ad3ed",
@@ -53,53 +64,53 @@ function TarikTambang() {
         </div>
 
         <div>
-          <h1 className="text-center"></h1>
+          <h1>Config - Tarik Tambang</h1>
         </div>
 
         <div className="row">
           <div className="col-6">
             <div className="form-control">
               <div className="form-group mb-3">
-                <label for="exampleInputEmail1">Live event slug</label>
+                <label>Live event slug</label>
                 <input type="text" className="form-control" placeholder="pagi-ceria-di-goplay" name="live_event_slug" onChange={(e) => handleConfigParamsChanges(e)} />
                 <small className="form-text text-muted">Eg: https://goplay.co.id/live/<b>pagi-ceria-di-goplay</b>. Live event slug can be found on your goplay url</small>
               </div>
               <div className="form-group mb-3">
-                <label for="exampleInputEmail1"><b>Left</b> side label</label>
+                <label><b>Left</b> side label</label>
                 <input type="text" className="form-control" name="left_side_label" defaultValue={configParams.left_side_label} onChange={(e) => handleConfigParamsChanges(e)} />
               </div>
               <div className="form-group mb-3">
-                <label for="exampleInputEmail1"><b>Left</b> side Gift list</label>
+                <label><b>Left</b> side Gift list</label>
                 <Select
                   name="left_side_label"
                   isMulti
-                  options={GoplayApi.AvailableGifts("left_side_gift_list")}
+                  options={GoplayApi.AvailableGifts(vgList, "left_side_gift_list")}
                   onChange={(e) => handleConfigParamsChanges(e)}
                 />
               </div>
               <div className="form-group mb-3">
-                <label for="exampleInputEmail1"><b>Right</b> side label</label>
+                <label><b>Right</b> side label</label>
                 <input type="text" className="form-control" name="right_side_label" defaultValue={configParams.right_side_label} onChange={(e) => handleConfigParamsChanges(e)} />
               </div>
               <div className="form-group mb-3">
-                <label for="exampleInputEmail1"><b>Right</b> side Gift list</label>
+                <label><b>Right</b> side Gift list</label>
                 <Select
                   name="right_side_label"
                   isMulti
-                  options={GoplayApi.AvailableGifts("right_side_gift_list")}
+                  options={GoplayApi.AvailableGifts(vgList, "right_side_gift_list")}
                   onChange={(e) => handleConfigParamsChanges(e)}
                 />
               </div>
               <div className="form-group mb-3">
-                <label for="exampleInputEmail1">Start Time</label>
+                <label>Start Time</label>
                 <input type="datetime-local" className="form-control" name="start_time" onChange={(e) => handleConfigParamsChanges(e)} />
               </div>
               <div className="form-group mb-3">
-                <label for="exampleInputEmail1">End Time</label>
+                <label>End Time</label>
                 <input type="datetime-local" className="form-control" name="end_time" onChange={(e) => handleConfigParamsChanges(e)} />
               </div>
               <div className="form-group mb-3">
-                <label for="exampleInputEmail1">Winning Condition</label>
+                <label>Winning Condition</label>
                 <Select
                   name="winning_condition"
                   options={[
@@ -110,7 +121,7 @@ function TarikTambang() {
                 />
               </div>
               <div className="form-group mb-3">
-                <label for="exampleInputEmail1">Winning Threshold</label>
+                <label>Winning Threshold</label>
                 <input type="number" className="form-control" name="winning_threshold" onChange={(e) => handleConfigParamsChanges(e)} />
               </div>
 
