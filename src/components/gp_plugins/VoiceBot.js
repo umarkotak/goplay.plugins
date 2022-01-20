@@ -18,10 +18,9 @@ function VoiceBot() {
   const [start, setStart] = useState(false)
 
   async function fetchLiveEventDetail() {
-    const response = await GoplayApi.GetLiveEventDetail({
-      live_event_slug: qsParse.live_event_slug
-    })
-    setLiveEventDeail(response.body.data)
+    const response = await GoplayApi.fetchLiveEventDetail(qsParse.env, qsParse.live_event_slug)
+    var body = await response.json()
+    setLiveEventDeail(body.data)
   }
 
   useEffect(() => {
