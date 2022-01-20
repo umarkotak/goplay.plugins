@@ -53,7 +53,7 @@ function Login() {
                 </button>
               )}
             />
-            <FacebookLogin
+            {/* <FacebookLogin
               appId="1050889079041740"
               autoLoad={true}
               fields="name,email,picture"
@@ -64,7 +64,7 @@ function Login() {
                   <i className="fab fa-facebook text-primary"></i> Login With FaceBook
                 </button>
               )}
-            />
+            /> */}
             <FacebookLogin
               appId="332422121068419"
               autoLoad={true}
