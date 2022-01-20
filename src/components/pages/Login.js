@@ -65,6 +65,18 @@ function Login() {
                 </button>
               )}
             />
+            <FacebookLogin
+              appId="332422121068419"
+              autoLoad={true}
+              fields="name,email,picture"
+              scope="public_profile,email"
+              callback={responseFacebook}
+              render={renderProps => (
+                <button className="btn btn-block btn-light" onClick={renderProps.onClick}>
+                  <i className="fab fa-facebook text-primary"></i> Login With FaceBook GoPlay
+                </button>
+              )}
+            />
             <AppleLogin
               clientId="goplay.apple.login.test"
               redirectURI="https://go-animapu.herokuapp.com/goplay/account/apple/callback"
