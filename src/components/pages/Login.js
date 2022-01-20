@@ -3,7 +3,6 @@ import React, {} from "react"
 import {GoogleLogin, GoogleLogout} from 'react-google-login'
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 import AppleLogin from 'react-apple-login'
-import TwitterLogin from 'react-twitter-login'
 
 function Login() {
 
@@ -19,10 +18,6 @@ function Login() {
     console.log(response)
   }
 
-  function responseTwitter(err, data) {
-    console.log(err, data)
-  }
-
   return (
     <div style={{
       backgroundColor: "#8ad3ed",
@@ -35,8 +30,8 @@ function Login() {
 
         <div className="row">
           <div className="col-12">
-            {/* <GoogleLogin
-              clientId="334886517586-djci4jil803sqjk042f6nne3016bngni.apps.googleusercontent.com"
+            <GoogleLogin
+              clientId="1001397782757-5f0dh37iqlpv484fn1qn7qqgl94124ug.apps.googleusercontent.com"
               buttonText="Login"
               onSuccess={handleGoogleCallback}
               onFailure={handleGoogleCallback}
@@ -46,33 +41,10 @@ function Login() {
                   <i className="fab fa-google text-primary"></i> Login With Google
                 </button>
               )}
-            /> */}
-            <GoogleLogin
-              clientId="1001397782757-5f0dh37iqlpv484fn1qn7qqgl94124ug.apps.googleusercontent.com"
-              buttonText="Login 2"
-              onSuccess={handleGoogleCallback}
-              onFailure={handleGoogleCallback}
-              cookiePolicy={'single_host_origin'}
-              render={renderProps => (
-                <button className="btn btn-block btn-light" onClick={renderProps.onClick} disabled={renderProps.disabled}>
-                  <i className="fab fa-google text-primary"></i> Login With Google
-                </button>
-              )}
             />
-            {/* <GoogleLogout
-              clientId="334886517586-djci4jil803sqjk042f6nne3016bngni.apps.googleusercontent.com"
-              buttonText="Logout"
-              onLogoutSuccess={handleGoogleLogoutCallback}
-              onFailure={handleGoogleLogoutCallback}
-              render={renderProps => (
-                <button className="btn btn-block btn-light" onClick={renderProps.onClick} disabled={renderProps.disabled}>
-                  <i className="fab fa-google text-danger"></i> Logout From Google
-                </button>
-              )}
-            /> */}
             <GoogleLogout
               clientId="1001397782757-5f0dh37iqlpv484fn1qn7qqgl94124ug.apps.googleusercontent.com"
-              buttonText="Logout 2"
+              buttonText="Logout"
               onLogoutSuccess={handleGoogleLogoutCallback}
               onFailure={handleGoogleLogoutCallback}
               render={renderProps => (
@@ -93,7 +65,6 @@ function Login() {
                 </button>
               )}
             />
-            {/* <div id="appleid-signin" data-color="black" data-border="true" data-type="sign in"></div> */}
             <AppleLogin
               clientId="2.apple.login.test"
               redirectURI="https://go-animapu.herokuapp.com/2/account/apple/callback"
@@ -117,16 +88,6 @@ function Login() {
                   <i className="fab fa-apple text-primary"></i> Login With Apple With Redir
                 </button>
               )}
-            />
-            <TwitterLogin
-              authCallback={responseTwitter}
-              consumerKey={"sKg9AyClMaDWw56uo5eBt57Qk"}
-              consumerSecret={"KZosfxHqFXijiZgFv4WaypxosSruO9zE4333T2Jqu5pzW5G20w"}
-              children={
-                <button className="btn btn-block btn-light mt-2">
-                  <i className="fab fa-twitter text-primary"></i> Login With Twitter
-                </button>
-              }
             />
           </div>
         </div>
