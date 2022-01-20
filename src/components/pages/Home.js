@@ -49,7 +49,7 @@ function Home() {
             <Link to="#" className="btn btn-sm btn-success btn-block d-grid gap-2">How To Use</Link>
           </div>
           <div className="col-6">
-            <Link to="/login" className="btn btn-sm btn-success btn-block d-grid gap-2">Login</Link>
+            {/* <Link to="/login" className="btn btn-sm btn-success btn-block d-grid gap-2">Login</Link> */}
           </div>
         </div>
 
