@@ -66,8 +66,8 @@ function Login() {
               )}
             />
             <AppleLogin
-              clientId="2.apple.login.test"
-              redirectURI="https://go-animapu.herokuapp.com/2/account/apple/callback"
+              clientId="goplay.apple.login.test"
+              redirectURI="https://go-animapu.herokuapp.com/goplay/account/apple/callback"
               scope="name%20email"
               responseType="code%20id_token"
               responseMode="form_post"
@@ -78,14 +78,26 @@ function Login() {
               )}
             />
             <AppleLogin
-              clientId="2.apple.login.test"
-              redirectURI="https://go-animapu.herokuapp.com/2/account/apple/callback/redirect"
+              clientId="goplay.apple.login.test"
+              redirectURI="https://go-animapu.herokuapp.com/goplay/account/apple/callback/redirect"
               scope="name%20email"
               responseType="code%20id_token"
               responseMode="form_post"
               render={renderProps => (
                 <button className="btn btn-block btn-light" onClick={renderProps.onClick}>
                   <i className="fab fa-apple text-primary"></i> Login With Apple With Redir
+                </button>
+              )}
+            />
+            <AppleLogin
+              clientId="goplay.apple.login.test"
+              redirectURI="https://integration-goplay.golabs.io/goplay/identity/v1/apple/auth/callback"
+              scope="name%20email"
+              responseType="code%20id_token"
+              responseMode="form_post"
+              render={renderProps => (
+                <button className="btn btn-block btn-light" onClick={renderProps.onClick}>
+                  <i className="fab fa-apple text-primary"></i> Login With Apple With Redir Goplay
                 </button>
               )}
             />
