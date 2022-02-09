@@ -1,4 +1,4 @@
-import React, {} from "react"
+import React, {useState} from "react"
 
 import {GoogleLogin, GoogleLogout} from 'react-google-login'
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
@@ -6,8 +6,12 @@ import AppleLogin from 'react-apple-login'
 
 function Login() {
 
+  const [googleAccessToken, setGoogleAccessToken] = useState({})
+  const [facebookAccessToken, setFacebookAccessToken] = useState({})
+
   function handleGoogleCallback(response) {
     console.log("GOOGLE LOGIN", response)
+    setGoogleAccessToken(response.accessToken)
   }
 
   function handleGoogleLogoutCallback(response) {
@@ -16,6 +20,7 @@ function Login() {
 
   function responseFacebook(response) {
     console.log(response)
+    setFacebookAccessToken(response.accessToken)
   }
 
   return (
@@ -113,6 +118,18 @@ function Login() {
                 </button>
               )}
             />
+          </div>
+        </div>
+
+        <div className="col-12">
+          <div className="form-group">
+            <label>Google Access Token</label>
+            <textarea className="form-control" rows="5" defaultValue={googleAccessToken}></textarea>
+          </div>
+
+          <div className="form-group">
+            <label>FaceBook Access Token</label>
+            <textarea className="form-control" rows="5" defaultValue={facebookAccessToken}></textarea>
           </div>
         </div>
       </div>
