@@ -11,7 +11,7 @@ function Login() {
 
   function handleGoogleCallback(response) {
     console.log("GOOGLE LOGIN", response)
-    setGoogleAccessToken(response.accessToken)
+    setGoogleAccessToken(response.tokenId)
   }
 
   function handleGoogleLogoutCallback(response) {
