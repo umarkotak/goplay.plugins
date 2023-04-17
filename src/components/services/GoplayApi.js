@@ -1,7 +1,7 @@
 class GoplayApi {
   constructor() {
     this.ProxyHost = "http://localhost:8000/proxy"
-    this.ProxyHost = "https://goplay-plugins-api.herokuapp.com/proxy"
+    // this.ProxyHost = "https://goplay-plugins-api.herokuapp.com/proxy"
   }
 
   getGoplayHost(env) {

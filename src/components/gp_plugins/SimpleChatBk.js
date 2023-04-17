@@ -17,19 +17,14 @@ function SimpleChat() {
   }
 
   async function fetchLiveEventDetail() {
-    // const response = await GoplayApi.fetchLiveEventDetail({
-    //   live_event_slug: qsParse.live_event_slug
-    // })
-    // setLiveEventDeail(response.body.data)
+    const response = await GoplayApi.fetchLiveEventDetail({
+      live_event_slug: qsParse.live_event_slug
+    })
+    setLiveEventDeail(response.body.data)
   }
 
   useEffect(() => {
     fetchLiveEventDetail()
-    setChatMessages(chatMessages => [...chatMessages, {
-      id: 1,
-      frm: "umar",
-      msg: "hello"
-    }])
     // eslint-disable-next-line
   }, [])
 
